@@ -1,0 +1,11 @@
+Observações:
+
+Cliente Petrobras aparentemente não existe, porém, possui licenças. (Licencas descartadas)
+
+REIVENTOSBRASVENTOS aparentemente apagado do arquivo de clientes registrados. (Adequado)
+
+Licencas com "SAGEICCP" no lugar da redundância. (Adequada)
+
+Licenca da ATE(118) "ATE_SE_ASSIS_Linux_scd_11912110-0-2_lic" com o codigo da ATE-II (119) (Descartada)
+ATE,SE_ASSIS,11912110,scd,0,2
+
