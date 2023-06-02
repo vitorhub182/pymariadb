@@ -1,0 +1,14 @@
+Sagelic:
+--- verificar como adicionar checkbox (licenças 23)
+--- verificar a lógica de exclusão na listagem do Sagelic
+
+acervo:
+
+script:
+--- verificar como agrupar os módulos em uma única 
+
+banco:
+--- verificar qual campo que define se a licença vai ou não ser listada no sagelic
+
+
+
