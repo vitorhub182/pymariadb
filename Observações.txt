@@ -9,3 +9,20 @@ Licencas com "SAGEICCP" no lugar da redundância. (Adequada)
 Licenca da ATE(118) "ATE_SE_ASSIS_Linux_scd_11912110-0-2_lic" com o codigo da ATE-II (119) (Descartada)
 ATE,SE_ASSIS,11912110,scd,0,2
 
+
+Não serão enviadas as licenças temporárias, canceladas ou atualizadas
+
+Não serão enviadas licenças com "TESTE" ou "TST" no nome.
+
+Não serão enviadas licenças internas, ou seja, que contenham "LASC", "CEPEL" ou "CEPEL-EXCLUSIVO" como proprietário
+
+
+Qual módulo atual é equivalente ao:
+ - bdh-report
+ - expert
+ - sispro
+ - recomp
+
+ ELETROSUL,CTPAL,19040834,*,0,2
+ ELETROSUL,LABORATORIO,19040837,*,0,2
+ COSERN,SERV_IHM,1204086,*,0,4
