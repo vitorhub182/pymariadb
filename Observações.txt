@@ -1,28 +1,26 @@
 Observações:
 
-Cliente Petrobras aparentemente não existe, porém, possui licenças. (Licencas descartadas)
+Cliente Petrobras aparentemente não existe, porém, possui licenças. (Licencas descartadas) - OK
 
-REIVENTOSBRASVENTOS aparentemente apagado do arquivo de clientes registrados. (Adequado)
+REIVENTOSBRASVENTOS aparentemente apagado do arquivo de clientes registrados. (Adequado) - OK
 
-Licencas com "SAGEICCP" no lugar da redundância. (Adequada)
+Licencas com "SAGEICCP" no lugar da redundância. (Adequada para 2) OK
 
 Licenca da ATE(118) "ATE_SE_ASSIS_Linux_scd_11912110-0-2_lic" com o codigo da ATE-II (119) (Descartada)
 ATE,SE_ASSIS,11912110,scd,0,2
 
+Descartado: ELETROSUL,TESTE,19071269,estmon,0,0 - OK
 
-Não serão enviadas as licenças temporárias, canceladas ou atualizadas
+Não serão enviadas as licenças temporárias - OK
 
-Não serão enviadas licenças com "TESTE" ou "TST" no nome.
+Não serão enviadas as licencas canceladas 
 
-Não serão enviadas licenças internas, ou seja, que contenham "LASC", "CEPEL" ou "CEPEL-EXCLUSIVO" como proprietário
+Não serão enviadas as licencas atualizadas 
 
+Não serão enviadas licenças do CEPEL que contenham: EXCLUSIVO_PARA_TESTE_DO_CEPEL, TESTE, TST - OK
 
-Qual módulo atual é equivalente ao:
+Módulos descartados - OK
  - bdh-report
  - expert
  - sispro
  - recomp
-
- ELETROSUL,CTPAL,19040834,*,0,2
- ELETROSUL,LABORATORIO,19040837,*,0,2
- COSERN,SERV_IHM,1204086,*,0,4
