@@ -9,15 +9,18 @@ modulo = [10]
 modulo = ["scd"]
 cliente = "None"
 licenca = "None"
-teste = 0
+licenca = "None"
+teste_cancelada = 0
 quant_licencas = 0
-
+teste_existente = 0
 try:
- L = open('orig/Licencas', 'r', encoding="utf-8")
+ L = open('orig/Licencas', 'r+', encoding="utf-8")
 
 
  for linha in L:
-    teste = 0
+    licenca = "None"
+    teste_cancelada = 0
+    teste_existente = 0
     lin = linha.split(',')
     
     if lin[0] == "#":
@@ -30,41 +33,47 @@ try:
      lin2 = linha2.split(',')
      if lin2[0] == lin[0] :
       cliente = lin2[0]
-      print(f"Cliente: {cliente}")
       break
     
     C.close()
     # Encontrando as atualizadas e canceladas para descarte
     # Lista criada a partir do comando "find -name *_lic"
     AC = open('licencas23.txt', 'r', encoding="utf-8")
-
-    licenca_lista = lin[0] + "_" + lin[1]
-    print(f"Licenca_lista: {licenca_lista}")
+    lin[5] = re.sub('[\n$]','',lin[5])
+    licenca_lista = lin[0] + "_" + lin[1] + "_Linux_" + lin[3] + "_" + lin[2] + "-" + lin[4] + "-" + lin[5] + "_lic"
     for linha in AC:
      lin3 = linha.split('/')
+
+     # Verificando cliente
      if cliente != lin3[1]:
-      print("Cliente diferente...continua")
       continue
-     if len(lin3) == 4:
-      print("Verificando Match com o cliente")
-      match_cliente = re.search("^" + cliente,lin3[3])
-      if  match_cliente and (lin3[2] == "CANCELADAS" or lin3[2] == "ATUALIZADAS"):
-       print("Verificando Match com a licenca")
-       match_licenca = re.search("^" + licenca_lista,lin3[3])
-       if match_licenca:
-        licenca = lin3[3]
-        print(f"Licenca descarte:{licenca}")
-        teste = 1
-        break
-       #print(f"{cliente} : {lin3[1]}/{lin3[2]}/{lin3[3]}")
-       continue
+
+     # Verificando se cancelada/atualizada
+     elif len(lin3) == 4 and (lin3[2] == "CANCELADAS" or lin3[2] == "ATUALIZADAS"):
+      match_licenca_cancelada = re.match(licenca_lista,lin3[3])
+      if match_licenca_cancelada:
+       licenca = lin3[3]
+       teste_cancelada = 1
+       break
       continue
+     
+     # Verificando se existe a licenca na lista de arquivos
+
+     match_licenca_existente = re.match(licenca_lista,lin3[2])
+     if match_licenca_existente:
+      teste_existente = 1
+
     AC.close()
     
-    # TESTA SE É CANCELADA
-    if teste == 1:
-     break
-    if int(lin[4]) == 0:
+    # Verifica flag de cancelada
+    if teste_cancelada == 1:
+     continue
+     # -------------------
+    
+    # Verificando flag de arquivo existente e se é permanente
+
+    if (int(lin[4]) == 0) and (int(teste_existente) == 1):
+     validade_modulo = "NULL"
      print("Prazo: Permanente")
     else:
     # Comente o "continue para printar também lics temporárias"
@@ -74,9 +83,17 @@ try:
     # --------
     
     print(f"COD Cliente: {cliente}")
-    print(f"Licenciado: {lin[0]}")
-    print(f"Site: {lin[1]}")
-    print(f"ID: {lin[2]}")
+
+    licenciado = lin[0]
+    print(f"Licenciado: {licenciado}")
+    
+    site = lin[1]
+    print(f"Site: {site}")
+    
+    id = lin[2]
+    print(f"ID: {id}")
+
+    # Convertendo nome dos modulos
 
     if lin[3] == "sageiccp":
      lin[3] = "iccp"
@@ -87,16 +104,21 @@ try:
     elif lin[3] == "sagesnmp":
      lin[3] = "snmp"
 
-    print(f"Modulo: {lin[3]}")
+    modulo = lin[3]
+    print(f"Modulo: {modulo}")
     
-    if int(lin[5]) == 2: 
-     print("Redundancia: Sim")
+    if int(lin[5]) >= 2:
+     redund = "Sim"
+     print(f"Redundancia: {redund}")
     else:
-     print("Redundancia: Não")
+     redund = "Não"
+     print(f"Redundancia: {redund}")
     
     quant_licencas += 1
+
     ## Listando módulos do banco
-    #tamMod = len(modulo) - 1 
+   
+   #tamMod = len(modulo) - 1 
     #contador = 0
     #while tamMod >= contador:
     # if lin[3] != modulo[contador]:
@@ -109,12 +131,11 @@ try:
     
     # Definindo data de geração
     posi_data_init = re.search(lin2[1], lin[2]).end()
-    posi_data_finish = posi_data_init + 4
-    
+    posi_data_finish = posi_data_init + 4 
     data = lin[2]
     data = data[posi_data_init:posi_data_finish]
-    print(f"Data: {data[0:2]}/{data[2:4]}")
-    print("")
+    data = "01/" + data[0:2] + "/20" + data[2:4]
+    print(f"Data: {data}\n")
     
  L.close()
 

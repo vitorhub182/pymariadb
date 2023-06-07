@@ -9,13 +9,20 @@ Licencas com "SAGEICCP" no lugar da redundância. (Adequada para 2) OK
 Licenca da ATE(118) "ATE_SE_ASSIS_Linux_scd_11912110-0-2_lic" com o codigo da ATE-II (119) (Descartada)
 ATE,SE_ASSIS,11912110,scd,0,2
 
+Licencas com esses detalhe "FOI_REMOVIDA" (Descartada):
+ELECNOR,SE_MIRANDAII,58131035,sage61850,0,2_FOI_REMOVIDA
+ELECNOR,SE_MIRANDAII,58131036,scd,0,2_FOI_REMOVIDA
+
+
 Descartado: ELETROSUL,TESTE,19071269,estmon,0,0 - OK
 
 Não serão enviadas as licenças temporárias - OK
 
-Não serão enviadas as licencas canceladas 
+Não serão enviadas as licencas canceladas - OK
 
-Não serão enviadas as licencas atualizadas 
+Não serão enviadas as licencas atualizadas - OK
+
+Não serão enviadas as licencas que não possuem arquivo no disco - OK
 
 Não serão enviadas licenças do CEPEL que contenham: EXCLUSIVO_PARA_TESTE_DO_CEPEL, TESTE, TST - OK
 
