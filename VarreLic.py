@@ -1,9 +1,13 @@
 #!/usr/bin/python3.8
 
 import re
+import mariadb
+from connect import conexao
+
 lin = 0
 lin2 = 0
 lin3 = 0
+
 
 modulo = [10]
 modulo = ["scd"]
@@ -99,7 +103,7 @@ try:
      lin[3] = "iccp"
 
     elif lin[3] == "sage61850":
-     lin[3] = "61850"
+     lin[3] = "i61850"
 
     elif lin[3] == "sagesnmp":
      lin[3] = "snmp"
@@ -108,10 +112,10 @@ try:
     print(f"Modulo: {modulo}")
     
     if int(lin[5]) >= 2:
-     redund = "Sim"
+     redund = 2
      print(f"Redundancia: {redund}")
     else:
-     redund = "Não"
+     redund = 1
      print(f"Redundancia: {redund}")
     
     quant_licencas += 1
@@ -137,6 +141,8 @@ try:
     data = "01/" + data[0:2] + "/20" + data[2:4]
     print(f"Data: {data}\n")
     
+    conexao("ELETRO") 
+
  L.close()
 
 except Exception as e :
@@ -144,5 +150,4 @@ except Exception as e :
 else:
  print("Fim...")
  print(f"Quantidade de licenças listadas {quant_licencas}")
-
 # print(f"Modulos identificados {modulo}")
