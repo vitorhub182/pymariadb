@@ -16,8 +16,8 @@ def insertCliente(cliente)
  return id_cliente
 
 # Insersão de Site
-def insertSite(id_cliente)
- sql = "insert into empreendimento (id_cliente,site,descricao) values (%s,%s,%s)
+def insertSite(id_cliente, site)
+ sql = "insert into empreendimento (id_cliente,site,descricao) values (%s,%s,%s)"
  cur.execute(sql,(id_cliente,site,"SITE DE LICENCAS 23",)
 
  sql = "select max(id) from empreendimento"
@@ -26,7 +26,7 @@ def insertSite(id_cliente)
  return id_empreendimento
 
 # Insersão de Lic
-def insertLic(id_empreendimento):
+def insertLic(id,id_cliente,id_empreendimento,data):
  
  sql = "insert into licenca (mrid,id_licenciado,,tipo_licenca,versao_sage,release_sage,updates_ate,data_criacao,data_atualizacao,pfihm,cancelada) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
  cur.execute(sql,(id,id_cliente,id_empreendimento,"Producao",23, 00,data,data,data,0,0,)
@@ -35,7 +35,6 @@ def insertLic(id_empreendimento):
  cur.execute(sql)
  id = cur.fetchall()
  return id
-
 
 # Insersão de ambiente_licenca
 def insertAl(id)
@@ -47,12 +46,9 @@ def insertAl(id)
  return id_al
 
 # Insersão de Módulo
-def insertmod(id_al):
- if modulo == "sclone":
-  sql = "insert into em ambiente_licenca (id,mrid,id_amb,redundante,cancelada) values (%s, %s, %s, %s, %s)"
-  cur.execute(sql,(id_ambiente,result_lic,"clone", 1, 0,)
-  id_al = id_ambiente
- elif modulo == "scd":
+def insertmod(id_al,id_cliente,redund,data,modulo):
+
+ if modulo == "scd":
   sql = "insert into modulo_ambiente (id_ambiente_licenca, id_mdl, id_contratante, copias, data_criacao,data_validade, cancelada) values (%s, %s, %s, %s, %s, %s)"
   cur.execute(sql,(id_al, "ihm", id_cliente, redund,data ,"NULL",0,)
 
@@ -81,29 +77,30 @@ def conexao(cliente,site,id,modulo,redund,data):
  # Verificando Cliente
  sql = "select c.id from cliente c where c.sigla = %s group by c.id"
  cur.execute(sql, (cliente,))
- result = cur.fetchall()
- id_cliente = result
+ id_cliente = cur.fetchall()
+ 
  print(f"Id do cliente {id_cliente}")
  
- if result: 
+ if id_cliente: 
    print("Cliente Encontrado\n")
    print("Verificando existencia de empreendimento...\n")
    
    # Verificando Empreendimento(site)
-   sql = "select e.site from empreendimento where e.site = %s"
+   sql = "select e.id_empreendimento from empreendimento where e.site = %s"
    cur.execute(sql, (site,))
-   result = cur.fetchall()
+   id_empreendimento = cur.fetchall()
    
-   if result:
+   
+   if id_empreendimento:
     print("Instalação encontrada\n")
     print("Verificando licenca...\n")
      
 
     sql = "select l.mrid from licenca l inner join empreendimento e on id.e = id_empreendimento where l.mrid = %s"
     cur.execute(sql,(id,))
-    result = cur.fetchall()
+    id = cur.fetchall()
     
-    if result:
+    if id:
      print("Licenca encontrada\n")
      print("Verificando modulo...\n")
      
@@ -116,6 +113,9 @@ def conexao(cliente,site,id,modulo,redund,data):
       continue
      else :
       print(f"Módulo {modulo}  não encontrado, inserindo-o na licenca: {id}")
+      if modulo == "sclone":
+       InsertAl()
+
     else :
      print("Licença não encontrada")
      print("Inserindo nova licença...")
